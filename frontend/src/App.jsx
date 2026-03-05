@@ -6,7 +6,8 @@ import DiseasePage from "./pages/DiseasePage";
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50">
+      
+      <div className="min-h-screen bg-[#fcfdfa]">
         <Navbar />
         <main className="max-w-6xl mx-auto py-10 px-4">
           <Routes>

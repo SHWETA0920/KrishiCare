@@ -1,0 +1,28 @@
+@import "tailwindcss"; /* This replaces @tailwind base, components, utilities */
+
+/* Custom Agriculture Aesthetics */
+@layer base {
+  body {
+    background-color: #fcfdfa;
+    color: #1a2e1a;
+    /* Subtle leaf-vein pattern */
+    background-image: radial-gradient(#22c55e10 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+}
+
+@keyframes scanLine {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(320px); }
+}
+
+.animate-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, transparent, #10b981, transparent);
+  box-shadow: 0 0 12px #10b981;
+  animation: scanLine 2s linear infinite;
+  z-index: 20;
+}
