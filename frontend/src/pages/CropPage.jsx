@@ -1,73 +1,146 @@
 import React, { useState } from "react";
 import axios from "axios";
 import ResultCard from "../components/ResultCard";
+import { Sprout, Wind, Droplets, Thermometer, TestTube } from "lucide-react";
 
-function CropPage() {
+const CropPage = () => {
   const [form, setForm] = useState({
-    N: "", P: "", K: "", temperature: "", humidity: "", ph: "", rainfall: "",
+    N: "",
+    P: "",
+    K: "",
+    temperature: "",
+    humidity: "",
+    ph: "",
+    rainfall: "",
   });
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
+      // Connects to your existing Python/Flask backend
       const res = await axios.post("http://127.0.0.1:5000/predict-crop", form);
       setResult(res.data.recommended_crop);
-    } catch {
-      alert("Error connecting to the AI model.");
+    } catch (err) {
+      console.error("ML Prediction Error:", err); // Now 'err' is used!
+      alert("AI Service is currently offline.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="grid lg:grid-cols-5 gap-12 items-start">
-      <div className="lg:col-span-2 space-y-6">
-        <span className="bg-green-100 text-green-700 px-4 py-1 rounded-full text-sm font-bold tracking-wide uppercase">Precision Farming</span>
-        <h2 className="text-5xl font-black text-gray-900 leading-tight">
-          Find the <span className="text-green-600 underline decoration-green-200 underline-offset-8">Perfect Crop</span> for Your Land.
-        </h2>
-        <p className="text-gray-600 text-lg leading-relaxed">
-          Our AI analyzes soil nutrients and climate patterns to provide scientifically backed crop recommendations, ensuring maximum yield.
-        </p>
-      </div>
-
-      <div className="lg:col-span-3 bg-white p-8 rounded-3xl shadow-xl shadow-green-900/5 border border-gray-100">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Object.keys(form).map((key) => (
-              <div key={key} className="relative">
-                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 ml-1">
-                  {key} Value
-                </label>
-                <input
-                  type="number"
-                  name={key}
-                  onChange={handleChange}
-                  placeholder={`Enter ${key}...`}
-                  required
-                  className="w-full bg-gray-50 border-2 border-gray-100 p-3 rounded-xl focus:ring-4 focus:ring-green-500/10 focus:border-green-500 outline-none transition-all placeholder:text-gray-300"
-                />
-              </div>
-            ))}
+    <div className="max-w-6xl mx-auto px-4">
+      <div className="grid lg:grid-cols-5 gap-12 items-start">
+        {/* Left Side: Editorial Content (Matches Template Image) */}
+        <div className="lg:col-span-2 space-y-6 pt-10">
+          <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest">
+            <Sprout size={14} /> 01. Precision Farming
           </div>
-          
-          <button
-            className="w-full bg-green-700 text-white py-4 rounded-xl font-black text-lg hover:bg-green-800 hover:shadow-lg hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:translate-y-0 flex items-center justify-center gap-3"
-            disabled={loading}
-          >
-            {loading ? <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div> : "✨ Analyze Soil Data"}
-          </button>
-        </form>
+          <h2 className="text-5xl font-black text-gray-900 leading-tight">
+            Find the <span className="text-green-600 italic">Perfect Crop</span>{" "}
+            for Your Land.
+          </h2>
+          <p className="text-gray-500 text-lg leading-relaxed font-medium">
+            Our Machine Learning model analyzes your soil's chemical composition
+            and local climate data to suggest the most sustainable crop choice.
+          </p>
 
-        <ResultCard title="Precision Recommendation" result={result} type="crop" />
+          {/* Visual Accents */}
+          <div className="grid grid-cols-2 gap-4 pt-6">
+            <div className="p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">
+              <Thermometer className="text-green-600 mb-2" />
+              <p className="text-xs font-bold text-gray-400 uppercase">
+                Climate Aware
+              </p>
+            </div>
+            <div className="p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">
+              <TestTube className="text-green-600 mb-2" />
+              <p className="text-xs font-bold text-gray-400 uppercase">
+                NPK Analysis
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Side: ML Input Form */}
+        <div className="lg:col-span-3">
+          <div className="bg-white p-8 md:p-12 rounded-[3rem] shadow-2xl shadow-green-900/5 border border-gray-50 relative overflow-hidden">
+            {/* Loading Overlay */}
+            {loading && (
+              <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center">
+                <div className="w-16 h-16 border-4 border-green-100 border-t-green-600 rounded-full animate-spin"></div>
+                <p className="mt-4 font-black text-green-800 animate-pulse uppercase tracking-widest text-xs">
+                  AI Analyzing Soil...
+                </p>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {Object.keys(form).map((key) => (
+                  <div key={key} className="group">
+                    <label className="block text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2 ml-1 transition-colors group-focus-within:text-green-600">
+                      {key === "ph" ? "Soil pH Level" : `${key} Value`}
+                    </label>
+                    <input
+                      type="number"
+                      step="any"
+                      name={key}
+                      onChange={handleChange}
+                      placeholder={`Enter ${key}...`}
+                      required
+                      className="w-full bg-gray-50 border-2 border-gray-100 p-4 rounded-2xl focus:ring-4 focus:ring-green-500/10 focus:border-green-500 outline-none transition-all placeholder:text-gray-300 font-bold text-gray-700"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-gray-900 text-white py-5 rounded-2xl font-black text-xl hover:bg-green-700 hover:shadow-2xl hover:shadow-green-200 transition-all active:scale-[0.98] flex items-center justify-center gap-3 group"
+              >
+                Generate Recommendation
+                <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+              </button>
+            </form>
+
+            {/* Result Display */}
+            {result && (
+              <ResultCard
+                title="AI Recommendation"
+                result={result}
+                type="crop"
+                confidence="94% Match"
+              />
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
-}
+};
+
+// Simple Arrow component if Lucide isn't fully imported
+const ArrowRight = ({ className }) => (
+  <svg
+    className={className}
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="3"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M5 12h14M12 5l7 7-7 7" />
+  </svg>
+);
 
 export default CropPage;

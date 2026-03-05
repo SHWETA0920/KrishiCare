@@ -1,6 +1,5 @@
-@import "tailwindcss"; /* This replaces @tailwind base, components, utilities */
+@import "tailwindcss";
 
-/* Custom Agriculture Aesthetics */
 @layer base {
   body {
     background-color: #fcfdfa;
@@ -9,6 +8,23 @@
     background-image: radial-gradient(#22c55e10 1px, transparent 1px);
     background-size: 24px 24px;
   }
+}
+
+/* Fix for the Dashboard section transition */
+.cloud-divider {
+  position: relative;
+  background: white;
+}
+
+.cloud-divider::before {
+  content: "";
+  position: absolute;
+  top: -99px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: white;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
 }
 
 @keyframes scanLine {
