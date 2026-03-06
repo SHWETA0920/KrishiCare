@@ -43,26 +43,6 @@ Multimedia Guidance: Integrated Verified YouTube Tutorials for every scheme to p
 
 Direct Connectivity: Integrated one-tap dialer for the National Kisan Call Center (1800-180-1551) for immediate human expert assistance.
 
-5. 💬 Connectivity & Support
-   WhatsApp Community Sharing: A native integration allowing farmers to share scheme details directly with village cooperatives or groups.
-
-Regional Expert Connect: Specialized links to localized Agri-Block Offices, specifically tailored for the administrative structure of regions like Bhubaneswar, Odisha.
-
-📂 Project Architecture
-Plaintext
-KRISHICARE/
-├── backend/ # Flask API & ML Model Logic
-│ ├── models/ # Trained Machine Learning files (.pkl)
-│ ├── app.py # Main API Gateway
-│ └── requirements.txt # Python Dependencies
-├── frontend/ # React.js Application
-│ ├── src/
-│ │ ├── components/ # UI Building Blocks (Navbar, ResultCard)
-│ │ ├── data/ # Structured Schemes Metadata (schemesData.js)
-│ │ ├── pages/ # View Components (Dashboard, Schemes, Contact)
-│ │ └── App.jsx # Client-side Routing & Logic
-│ └── tailwind.config.js # Custom Agro-Design Styling
-└── README.md # Documentation
 🛠️ Technical Stack
 Frontend
 
