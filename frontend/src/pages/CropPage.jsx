@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import ResultCard from "../components/ResultCard";
-import { Sprout, Wind, Droplets, Thermometer, TestTube } from "lucide-react";
+import { Sprout, Thermometer, TestTube } from "lucide-react";
 
 const CropPage = () => {
   const [form, setForm] = useState({
@@ -23,11 +23,10 @@ const CropPage = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      // Connects to your existing Python/Flask backend
       const res = await axios.post("http://127.0.0.1:5000/predict-crop", form);
       setResult(res.data.recommended_crop);
     } catch (err) {
-      console.error("ML Prediction Error:", err); // Now 'err' is used!
+      console.error("ML Prediction Error:", err);
       alert("AI Service is currently offline.");
     } finally {
       setLoading(false);
@@ -35,43 +34,38 @@ const CropPage = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4">
+    <div className="max-w-6xl mx-auto">
       <div className="grid lg:grid-cols-5 gap-12 items-start">
-        {/* Left Side: Editorial Content (Matches Template Image) */}
-        <div className="lg:col-span-2 space-y-6 pt-10">
+
+        {/* Left: Editorial */}
+        <div className="lg:col-span-2 space-y-6 pt-4">
           <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest">
             <Sprout size={14} /> 01. Precision Farming
           </div>
           <h2 className="text-5xl font-black text-gray-900 leading-tight">
-            Find the <span className="text-green-600 italic">Perfect Crop</span>{" "}
-            for Your Land.
+            Find the{" "}
+            <span className="text-green-600 italic">Perfect Crop</span> for
+            Your Land.
           </h2>
           <p className="text-gray-500 text-lg leading-relaxed font-medium">
             Our Machine Learning model analyzes your soil's chemical composition
             and local climate data to suggest the most sustainable crop choice.
           </p>
-
-          {/* Visual Accents */}
-          <div className="grid grid-cols-2 gap-4 pt-6">
+          <div className="grid grid-cols-2 gap-4 pt-4">
             <div className="p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">
               <Thermometer className="text-green-600 mb-2" />
-              <p className="text-xs font-bold text-gray-400 uppercase">
-                Climate Aware
-              </p>
+              <p className="text-xs font-bold text-gray-400 uppercase">Climate Aware</p>
             </div>
             <div className="p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">
               <TestTube className="text-green-600 mb-2" />
-              <p className="text-xs font-bold text-gray-400 uppercase">
-                NPK Analysis
-              </p>
+              <p className="text-xs font-bold text-gray-400 uppercase">NPK Analysis</p>
             </div>
           </div>
         </div>
 
-        {/* Right Side: ML Input Form */}
+        {/* Right: Form */}
         <div className="lg:col-span-3">
           <div className="bg-white p-8 md:p-12 rounded-[3rem] shadow-2xl shadow-green-900/5 border border-gray-50 relative overflow-hidden">
-            {/* Loading Overlay */}
             {loading && (
               <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center">
                 <div className="w-16 h-16 border-4 border-green-100 border-t-green-600 rounded-full animate-spin"></div>
@@ -110,13 +104,12 @@ const CropPage = () => {
               </button>
             </form>
 
-            {/* Result Display */}
             {result && (
               <ResultCard
                 title="AI Recommendation"
                 result={result}
                 type="crop"
-                confidence="94% Match"
+                confidence="94%"
               />
             )}
           </div>
@@ -126,7 +119,6 @@ const CropPage = () => {
   );
 };
 
-// Simple Arrow component if Lucide isn't fully imported
 const ArrowRight = ({ className }) => (
   <svg
     className={className}
