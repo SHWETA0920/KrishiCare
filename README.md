@@ -231,14 +231,6 @@ Predicts monthly rainfall for an Indian meteorological subdivision.
 - [ ] Multilingual support (Hindi) for rural farmers
 - [ ] Integrate OpenWeatherMap API for real-time weather data
 
----
-
-## 👩‍💻 Author
-
-**Shweta Gupta**
-- 📧 gupta.shweta0920@gmail.com
-- 🔗 [LinkedIn](https://www.linkedin.com/in/shweta-gupta-087777309/)
-- 💻 [GitHub](https://github.com/SHWETA0920)
 
 ---
 
